@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مكتبة الموارد الأكاديمية الرقمية</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .intro {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .resource-card {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .resource-card h3 {
+      color: #1e3a8a;
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .resource-card-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #3b82f6;
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: #3b82f6;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #1e3a8a;
+    }
+    
+    .categories {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .category-btn {
+      background-color: #e5e7eb;
+      border: none;
+      padding: 8px 16px;
+      margin: 5px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .category-btn:hover, .category-btn.active {
+      background-color: #3b82f6;
+      color: white;
+    }
+    
+    footer {
+      background-color: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+    
+    .search-container {
+      margin-bottom: 20px;
+    }
+    
+    .search-box {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>مكتبة الموارد الأكاديمية الرقمية</h1>
+    <p>دليل شامل للأدوات والموارد الرقمية للطلاب والباحثين الأكاديميين</p>
+  </header>
+  
+  <div class="container">
+    <div class="intro">
+      <h2>مرحباً بكم في مكتبة الموارد الأكاديمية الرقمية</h2>
+      <p>تهدف هذه المكتبة إلى توفير مجموعة منتقاة من الأدوات والمنصات الرقمية التي تساعد الطلاب والباحثين على تحسين أدائهم الأكاديمي وتطوير مهاراتهم البحثية. تشمل هذه المجموعة مواقع للبحث العلمي، وأدوات لإدارة المراجع، ومنصات للتعلم عن بعد، وغيرها من الموارد المفيدة.</p>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" id="searchBox" class="search-box" placeholder="ابحث عن أداة أو مورد..." onkeyup="searchResources()">
+    </div>
+    
+    <div class="categories">
+      <button class="category-btn active" onclick="filterResources('all')">الكل</button>
+      <button class="category-btn" onclick="filterResources('research')">البحث العلمي</button>
+      <button class="category-btn" onclick="filterResources('references')">إدارة المراجع</button>
+      <button class="category-btn" onclick="filterResources('learning')">التعلم الإلكتروني</button>
+      <button class="category-btn" onclick="filterResources('writing')">الكتابة الأكاديمية</button>
+      <button class="category-btn" onclick="filterResources('other')">أدوات أخرى</button>
+    </div>
+    
+    <div class="resource-grid" id="resourceGrid">
+      <!-- قواعد البيانات البحثية -->
+      <div class="resource-card" data-category="research">
+        <div class="resource-card-icon">📚</div>
+        <h3>Google Scholar</h3>
+        <p>محرك بحث متخصص للأوراق العلمية والأكاديمية، يتيح البحث عن المقالات العلمية والرسائل الجامعية وغيرها من المراجع الأكاديمية.</p>
+        <a href="https://scholar.google.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="research">
+        <div class="resource-card-icon">🔍</div>
+        <h3>ScienceDirect</h3>
+        <p>منصة للوصول إلى آلاف المجلات العلمية والكتب الإلكترونية من إصدارات Elsevier في مختلف التخصصات العلمية.</p>
+        <a href="https://www.sciencedirect.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="research">
+        <div class="resource-card-icon">📰</div>
+        <h3>ResearchGate</h3>
+        <p>منصة تواصل اجتماعي للباحثين والعلماء لمشاركة الأبحاث والتعاون وطرح الأسئلة العلمية والتواصل مع الخبراء.</p>
+        <a href="https://www.researchgate.net/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="research">
+        <div class="resource-card-icon">📖</div>
+        <h3>JSTOR</h3>
+        <p>مكتبة رقمية تضم مجموعة كبيرة من المجلات الأكاديمية والكتب والمصادر الأولية في مجالات متعددة.</p>
+        <a href="https://www.jstor.org/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="research">
+        <div class="resource-card-icon">📑</div>
+        <h3>PubMed</h3>
+        <p>قاعدة بيانات متخصصة في الأبحاث الطبية والحيوية، تضم أكثر من 30 مليون مرجع من MEDLINE والمجلات العلمية.</p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <!-- برامج إدارة المراجع -->
+      <div class="resource-card" data-category="references">
+        <div class="resource-card-icon">📝</div>
+        <h3>Mendeley</h3>
+        <p>برنامج مجاني لإدارة المراجع العلمية وتنظيمها، يمكن من خلاله تخزين وتصنيف المقالات وإضافة الاقتباسات في الأبحاث.</p>
+        <a href="https://www.mendeley.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="references">
+        <div class="resource-card-icon">🔖</div>
+        <h3>Zotero</h3>
+        <p>أداة مجانية ومفتوحة المصدر لإدارة المراجع، تساعد في جمع وتنظيم واقتباس وتبادل الأبحاث والمراجع العلمية.</p>
+        <a href="https://www.zotero.org/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="references">
+        <div class="resource-card-icon">📋</div>
+        <h3>EndNote</h3>
+        <p>برنامج متخصص في إدارة المراجع البحثية وتنظيمها، يقدم أدوات متقدمة للبحث واسترجاع المعلومات وإدراج الاقتباسات.</p>
+        <a href="https://endnote.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <!-- منصات التعلم الإلكتروني -->
+      <div class="resource-card" data-category="learning">
+        <div class="resource-card-icon">🎓</div>
+        <h3>Coursera</h3>
+        <p>منصة للتعلم عن بعد تقدم آلاف الدورات التعليمية من أفضل الجامعات والمؤسسات التعليمية حول العالم.</p>
+        <a href="https://www.coursera.org/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="learning">
+        <div class="resource-card-icon">🏫</div>
+        <h3>edX</h3>
+        <p>منصة تعليمية عبر الإنترنت تقدم دورات مجانية وبرامج شهادات من أفضل الجامعات العالمية والمؤسسات التعليمية.</p>
+        <a href="https://www.edx.org/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="learning">
+        <div class="resource-card-icon">📹</div>
+        <h3>Khan Academy</h3>
+        <p>منصة تعليمية مجانية تقدم دروساً في مختلف المجالات الأكاديمية من خلال مقاطع فيديو تعليمية وتمارين تفاعلية.</p>
+        <a href="https://www.khanacademy.org/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <!-- أدوات الكتابة الأكاديمية -->
+      <div class="resource-card" data-category="writing">
+        <div class="resource-card-icon">✍️</div>
+        <h3>Grammarly</h3>
+        <p>أداة للتدقيق اللغوي والإملائي والنحوي، تساعد في تحسين جودة الكتابة وتصحيح الأخطاء اللغوية في النصوص الإنجليزية.</p>
+        <a href="https://www.grammarly.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="writing">
+        <div class="resource-card-icon">📄</div>
+        <h3>Overleaf</h3>
+        <p>محرر تعاوني عبر الإنترنت لإنشاء وثائق LaTeX، مناسب بشكل خاص للأبحاث العلمية والرياضية.</p>
+        <a href="https://www.overleaf.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="writing">
+        <div class="resource-card-icon">📝</div>
+        <h3>Hemingway Editor</h3>
+        <p>أداة تساعد في تحسين الكتابة من خلال تحديد الجمل المعقدة والكلمات غير الضرورية، مما يجعل النص أكثر وضوحاً وقوة.</p>
+        <a href="https://hemingwayapp.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <!-- أدوات أخرى مفيدة -->
+      <div class="resource-card" data-category="other">
+        <div class="resource-card-icon">📊</div>
+        <h3>Canva</h3>
+        <p>منصة لتصميم الرسومات والعروض التقديمية والمنشورات، تتيح إنشاء محتوى بصري احترافي بسهولة.</p>
+        <a href="https://www.canva.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="other">
+        <div class="resource-card-icon">📅</div>
+        <h3>Notion</h3>
+        <p>أداة شاملة لتدوين الملاحظات وإدارة المشاريع وتنظيم المهام، مناسبة للطلاب والباحثين لتنظيم دراستهم وأبحاثهم.</p>
+        <a href="https://www.notion.so/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+      
+      <div class="resource-card" data-category="other">
+        <div class="resource-card-icon">🧠</div>
+        <h3>Quizlet</h3>
+        <p>منصة للدراسة وحفظ المعلومات من خلال البطاقات التعليمية والاختبارات التفاعلية، تساعد في تحسين الحفظ والاستذكار.</p>
+        <a href="https://quizlet.com/" class="btn" target="_blank">زيارة الموقع</a>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>إعداد الأستاذ / ياسر مدير مكتبة كلية الخدمة الاجتماعية</p>
+    <p>© 2025 جميع الحقوق محفوظة</p>
+  </footer>
+  
+  <script>
+    // وظيفة للبحث في الموارد
+    function searchResources() {
+      const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+      const cards = document.querySelectorAll('.resource-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    
+    // وظيفة لتصفية الموارد حسب الفئة
+    function filterResources(category) {
+      const cards = document.querySelectorAll('.resource-card');
+      const buttons = document.querySelectorAll('.category-btn');
+      
+      // تحديث أزرار التصفية
+      buttons.forEach(button => {
+        button.classList.remove('active');
+        if (button.textContent === 'الكل' && category === 'all') {
+          button.classList.add('active');
+        } else if (button.textContent === 'البحث العلمي' && category === 'research') {
+          button.classList.add('active');
+        } else if (button.textContent === 'إدارة المراجع' && category === 'references') {
+          button.classList.add('active');
+        } else if (button.textContent === 'التعلم الإلكتروني' && category === 'learning') {
+          button.classList.add('active');
+        } else if (button.textContent === 'الكتابة الأكاديمية' && category === 'writing') {
+          button.classList.add('active');
+        } else if (button.textContent === 'أدوات أخرى' && category === 'other') {
+          button.classList.add('active');
+        }
+      });
+      
+      // تصفية البطاقات
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
